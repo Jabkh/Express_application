@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajout de Livre</title>
+</head>
+<body>
+  <h1>Ajout de Livre</h1>
+  
+  <form id="ajoutLivreForm">
+    <label for="titre">Titre du livre:</label>
+    <input type="text" id="titre" name="titre" required><br>
+
+    <label for="auteur">Auteur du livre:</label>
+    <input type="text" id="auteur" name="auteur" required><br>
+
+    <button type="submit">Ajouter le Livre</button>
+  </form>
+
+  <script>
+    document.getElementById('ajoutLivreForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const titre = document.getElementById('titre').value;
+      const auteur = document.getElementById('auteur').value;
+
+      // Envoie de la requête POST au serveur pour ajouter le livre
+      fetch('/ajout-livre', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          titre: titre,
+          auteur: auteur,
+        }),
+      })
+      .then(response => response.text())
+      .then(message => {
+        alert(message); // Affichez le message de succès ou d'erreur
+      })
+      .catch(error => {
+        console.error('Erreur lors de l\'ajout du livre :', error);
+        alert('Erreur lors de l\'ajout du livre. Veuillez réessayer.');
+      });
+    });
+  </script>
+</body>
+</html>

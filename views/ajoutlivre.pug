@@ -1,0 +1,47 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Ajout de Livre
+  body
+
+    h1 Ajout de Livre
+
+    form#ajoutLivreForm
+      label(for="titre") Titre du livre:
+      input(type="text", id="titre", name="titre", required)
+
+      label(for="auteur") Auteur du livre:
+      input(type="text", id="auteur", name="auteur", required)
+
+      button(type="button", onclick="ajouterLivre()") Ajouter le livre
+
+    script.
+      async function ajouterLivre() {
+        const form = document.getElementById('ajoutLivreForm');
+        
+        const titre = form.elements['titre'].value;
+        const auteur = form.elements['auteur'].value;
+        
+        
+        try {
+          const response = await fetch('/ajout-livre', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ titre, auteur })
+          });
+
+          if (response.ok) {
+            alert('Livre ajouté avec succès!');
+            // redirection possible ici
+          } else {
+            // La requête a échoué
+            alert('Erreur lors de l\'ajout du livre');
+          }
+        } catch (error) {
+          console.error('Erreur lors de la requête POST:', error.message);
+        }
+      }

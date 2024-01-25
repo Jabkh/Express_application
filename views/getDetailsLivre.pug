@@ -1,0 +1,9 @@
+extends layout.pug
+
+block content
+  h1 Détails du Livre
+  if detailsLivre
+    p Titre: #{detailsLivre.titre}
+    p Auteur: #{detailsLivre.auteur}
+  else
+    p Livre non trouvé

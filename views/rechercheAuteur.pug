@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  h1 Recherche de Livres par Auteur
+  if livresParAuteur.length > 0
+    ul
+      each livre in livresParAuteur
+        li= `${livre.titre} - ${livre.auteur}`
+  else
+    p Aucun livre trouvé pour cet auteur
